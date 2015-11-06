@@ -1,4 +1,4 @@
-package model;
+package com.coolweather.app.model;
 
 /* id是自增长主键
  * province_name省名

@@ -1,4 +1,4 @@
-package model;
+package com.coolweather.app.model;
 
 /* id是自增长主键
  * City表建表语句
@@ -55,3 +55,4 @@ public class City {
 		this.provinceId = provinceId;
 	}
 }
+

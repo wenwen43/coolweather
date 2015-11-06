@@ -1,4 +1,4 @@
-package model;
+package com.coolweather.app.model;
 
 /* id是自增长主键
  * County表建表语句
@@ -46,3 +46,4 @@ public class County {
 		this.cityId = cityId;
 	}
 }
+
