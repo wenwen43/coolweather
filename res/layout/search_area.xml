@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#484E61" >
+        
+        <Button 
+            android:id="@+id/switch_city2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/home" />"
+        
+        <TextView
+            android:id="@+id/search_county_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:textSize="24sp" />
+    </RelativeLayout>
+    
+   
+   
+
+    <EditText
+        android:id="@+id/place_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入城市名称（拼音）"  />
+    
+     <Button
+        android:id="@+id/search_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="城市代码查询" />
+     
+     <EditText
+        android:id="@+id/countycode_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入城市对应url号(后6位)查询天气"  />
+    
+     <Button
+        android:id="@+id/weathersearch_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="城市天气查询" />
+
+     <EditText
+        android:id="@+id/county_weather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="20"
+        android:inputType="textMultiLine"
+        android:lines="20" >
+
+        <requestFocus />
+    </EditText>
+    
+
+
+</LinearLayout>

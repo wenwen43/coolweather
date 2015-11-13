@@ -53,6 +53,16 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	* 更新天气按钮
 	*/
 	private Button refreshWeather;
+	/**
+	* 进入搜索界面按钮按钮
+	*/
+	private Button searchCounty;
+	/*
+	 * 是否从SearchCountyAcitivity中跳转过来
+	 **/
+	private boolean isFromSearchCountyAcitivity;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,20 +78,42 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		currentDateText = (TextView) findViewById(R.id.current_date);
 		switchCity = (Button) findViewById(R.id.switch_city);
      	refreshWeather = (Button) findViewById(R.id.refresh_weather);
-		String countyCode = getIntent().getStringExtra("county_code");//从Intent中取出县级代号
-		if (!TextUtils.isEmpty(countyCode)) {
-			// 有县级代号时就去查询天气，调用queryWeatherCode()
-			publishText.setText("同步中...");
-			weatherInfoLayout.setVisibility(View.INVISIBLE);
-			cityNameText.setVisibility(View.INVISIBLE);
-			queryWeatherCode(countyCode);
-			} else {
-				// 没有县级代号时就直接显示本地天气，调用showWeather()
-				showWeather();
-			}
+     	searchCounty = (Button) findViewById(R.id.search_city);
+		
+     	String countyCode_FromChoose = getIntent().getStringExtra("county_code");//从Intent中取出县级代号
+		String countyCode_FromSearch = getIntent().getStringExtra("countycode_FromSearch");//从Intent中取出县级代号
+		isFromSearchCountyAcitivity=getIntent().getBooleanExtra("from_search_activity", false);//用于判断是否从seachCountyActivity转入WeatherActivity
+		if(isFromSearchCountyAcitivity){    //如果是从SearchCountyAcitivity跳转过来的，就从SearchCountyAcitivity活动中取得城市代号
+			if (!TextUtils.isEmpty(countyCode_FromSearch)) {
+				// 有县级代号时就去查询天气，调用queryWeatherCode()
+				publishText.setText("同步中...");
+				weatherInfoLayout.setVisibility(View.INVISIBLE);
+				cityNameText.setVisibility(View.INVISIBLE);
+				queryWeatherCode(countyCode_FromSearch);
+				} else {
+					// 没有县级代号时就直接显示本地天气，调用showWeather()
+					showWeather();
+				}
+		}else if(!isFromSearchCountyAcitivity){//如果不是从SearchCountyAcitivity跳转过来的，就从ChooseAreaAcitivity活动中取得城市代号
+			if (!TextUtils.isEmpty(countyCode_FromChoose)) {
+				// 有县级代号时就去查询天气，调用queryWeatherCode()
+				publishText.setText("同步中...");
+				weatherInfoLayout.setVisibility(View.INVISIBLE);
+				cityNameText.setVisibility(View.INVISIBLE);
+				queryWeatherCode(countyCode_FromChoose);
+				} else {
+					// 没有县级代号时就直接显示本地天气，调用showWeather()
+					showWeather();
+				}
+		}
+			
+
+			
+		
 		switchCity.setOnClickListener(this);
 		refreshWeather.setOnClickListener(this);
-		}
+		searchCounty.setOnClickListener(this);
+	}
 	
 	
 	@Override
@@ -93,18 +125,24 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			finish();
 			break;
-			case R.id.refresh_weather:
-				publishText.setText("同步中...");
-				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-				String weatherCode = prefs.getString("weather_code", "");
-				if (!TextUtils.isEmpty(weatherCode)) {
-					queryWeatherInfo(weatherCode);
-					}
-				break;
-				default:
-					break;
-					}
-		}
+		case R.id.search_city:			
+			Intent intent2 = new Intent(this, SearchCountyActivity.class);
+			//intent2.putExtra("from_search_activity2", true);
+			startActivity(intent2);
+			finish();
+			break;
+		case R.id.refresh_weather:
+			publishText.setText("同步中...");
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			String weatherCode = prefs.getString("weather_code", "");
+			if (!TextUtils.isEmpty(weatherCode)) {
+				queryWeatherInfo(weatherCode);
+			}
+		 break;
+		 default:
+		 break;
+		 }
+	}
 
 
 	/**

@@ -16,6 +16,14 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@drawable/home" />"
+            
+            <Button 
+            android:id="@+id/search_city"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/search" />"
 
         <TextView
             android:id="@+id/city_name"
